@@ -2,17 +2,17 @@ import pygame, sys
 from pygame.locals import *
 
 pygame.init()
-screen = pygame.display.set_mode((1000,640),0,32)
+screen = pygame.display.set_mode((1120,640),0,32)
 maps = []
 myfont = pygame.font.SysFont("Segoe UI", 15)
 type = 0
 types = ('Dinding', 'Pintu', 'Tempat Tidur', 'Kursi')
-cor = ((255,255,0),(255,100,100),(255,0,0),(0,255,0))
+cor = ((0,0,0),(255,100,100),(255,0,0),(0,255,0))
 x=0
 Matrix = [[(-1,-1,-1,-1,-1) for x in range(20)] for x in range(25)]
 print (Matrix[24][19])
 
-def selec(type):
+def select(type):
 	if type == 0:
 		return (0,0,0)
 	elif type == 1:
@@ -24,7 +24,7 @@ def selec(type):
 
 while 1:
 	background = pygame.Surface((screen.get_size()))
-	background.fill((0,0,0))
+	background.fill((182,194,217))
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			x=0
@@ -70,7 +70,7 @@ while 1:
 			posi = []
 			posi.append(int(event.pos[0]/32))
 			posi.append(int(event.pos[1]/32))
-			ret = selec(type)
+			ret = select(type)
 			posi.append(ret[0])
 			posi.append(ret[1])
 			posi.append(ret[2])
@@ -79,15 +79,15 @@ while 1:
 
 	screen.lock()
 
-	pygame.draw.rect(background, (140,240,130), Rect((0,0), (32,32)))
+	pygame.draw.rect(background, (0, 255, 38), Rect((0,0), (32,32)))
 	i=25
 	while i!=0:
-		pygame.draw.line(background, (255,255,255), (i*32,0), (i*32,640))
+		pygame.draw.line(background, (35,61,77), (i*32,0), (i*32,640))
 		i=i-1
 
 	i=20
 	while i!=0:
-		pygame.draw.line(background, (255,255,255), (0,i*32), (800,i*32))
+		pygame.draw.line(background, (35,61,77), (0,i*32), (800,i*32))
 		i=i-1
 
 	x=0
@@ -97,12 +97,12 @@ while 1:
 			if Matrix[y][x][0]!=-1:
 				pygame.draw.rect(background, cor[Matrix[y][x][4]], Rect((y*32,x*32), (32,32)))
 
-	#Menampilkan tulisan
-	label = myfont.render("A - Dinding", 1, (255,255,0))
-	label2 = myfont.render("S - Pintu", 1, (255,255,0))	
-	label3 = myfont.render("D - Tempat Tidur", 1, (255,255,0))	
-	label4 = myfont.render("F - Kursi", 1, (255,255,0))
-	label5 = myfont.render('Terpilih: ' + types[type], 1, (255,255,0))			
+	#Menampilkan tulisan + pilihan 
+	label = myfont.render("A - Dinding", 1, (0,0,0))
+	label2 = myfont.render("S - Pintu", 1, (0,0,0))	
+	label3 = myfont.render("D - Tempat Tidur", 1, (0,0,0))	
+	label4 = myfont.render("F - Kursi", 1, (0,0,0))
+	label5 = myfont.render('Terpilih: ' + types[type], 1, (0,0,0))			
 	
 	screen.unlock()
 

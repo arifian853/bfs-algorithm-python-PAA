@@ -3,7 +3,7 @@ import sys
 from pygame.locals import *
 
 pygame.init()
-screen = pygame.display.set_mode((1000,640),0,32)
+screen = pygame.display.set_mode((1120,640),0,32)
 Matrix = [[(-1,-1,-1,-1,-1) for x in range(25)] for x in range(20)]
 vis = [[(-1,-1) for x in range(25)] for x in range(20)]
 cor = ((0,0,0),(255,100,100),(255,0,0),(0,255,0))
@@ -34,6 +34,7 @@ for j in range(20):
 		Matrix[j][x] = tempo	
 clock = pygame.time.Clock()
 FPS = 60
+
 def pathfind(posfimx, posfimy):
 	fila = []
 	fila.append((posfimy,posfimx))
@@ -54,13 +55,13 @@ def pathfind(posfimx, posfimy):
 					vis[yy][xx] = (y,x)					
 					fila.append((yy, xx))
 
-flagini = 0
+startFlag = 0
 op=1
 playtime=0
 while 1:
 	milliseconds = clock.tick(FPS)
-	seconds = milliseconds / 300.0
-	playtime += milliseconds /300.0
+	seconds = milliseconds / 250.0
+	playtime += milliseconds /250.0
 	background = pygame.Surface((screen.get_size()))
 	background.fill((182,194,217))
 	for event in pygame.event.get():
@@ -73,7 +74,7 @@ while 1:
 				posini = []
 				posini.append(int(event.pos[0]/32))
 				posini.append(int(event.pos[1]/32))
-				flagini = 1
+				startFlag = 1
 			elif op == 2:
 				posfim = []
 				posfim.append(int(event.pos[0]/32))
@@ -89,10 +90,10 @@ while 1:
 
 	if op == 3 and flag == 0:
 		pathfind(posfim[0], posfim[1])
-		print('for')
+		print('-')
 		routes = []
 		while (posini[0] != posfim[0]) or (posini[1] != posfim[1]):
-			print('do while')
+			print('-')
 			novoy = vis[posini[1]][posini[0]][0]
 			novox = vis[posini[1]][posini[0]][1]
 			posini = (novox, novoy)		
@@ -101,12 +102,15 @@ while 1:
 		flag = 1
 
 	screen.lock()
-	if flagini != 0:
+	if startFlag != 0:
 		pygame.draw.rect(background, (0, 255, 38), Rect((posini[0]*32,posini[1]*32), (32,32)))
-	label = myfont.render("HIJAU = Posisi Awal", 1, (0, 0, 0))
+	label = myfont.render("Tekan dimanapun = HIJAU = Posisi Awal", 1, (0, 0, 0))
 	label2 = myfont.render("Tekan F lalu pilih Posisi Akhir", 1, (0,0,0))	
 	label3 = myfont.render("Tekan S untuk Mulai", 1, (0,0,0))
-	label4 = myfont.render("Halo !", 1, (0,0,0))
+	label4 = myfont.render("---------------------------------------------------", 1, (0,0,0))
+	label5 = myfont.render("Arifian Saputra - 2001020029", 1, (0,0,0))
+	label6 = myfont.render("Samuel Miskan Hanock - 2001020037", 1, (0,0,0))
+	label7 = myfont.render("Perancangan dan Analisis Algoritma", 1, (0,0,0))
 	i=25
 	while i!=0:
 		pygame.draw.line(background, (35,61,77), (i*32,0), (i*32,640))
@@ -120,9 +124,9 @@ while 1:
 	for j in range(20):
 		for x in range(25):
 			if Matrix[j][x][0] != -1:
-					pygame.draw.rect(background, cor[Matrix[j][x][4]], Rect((x*32,j*32), (32,32)))
+					pygame.draw.rect(background, cor[Matrix[j][x][4]], Rect((x*32,j*32), (32,32),))
 	screen.unlock()
-
+					
 	if op == 3 and len(routes) != 0:
 		if playtime >= 1.0:
 			playtime = 0.0
@@ -133,4 +137,8 @@ while 1:
 	screen.blit(label, (810, 0))
 	screen.blit(label2, (810, 15))
 	screen.blit(label3, (810, 30))
+	screen.blit(label4, (810, 45))
+	screen.blit(label5, (810, 120))
+	screen.blit(label6, (810, 135))
+	screen.blit(label7, (810, 165))
 	pygame.display.update()
