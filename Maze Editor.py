@@ -7,7 +7,7 @@ maps = []
 myfont = pygame.font.SysFont("Segoe UI", 15)
 type = 0
 types = ('Dinding', 'Pintu', 'Tempat Tidur', 'Kursi')
-cor = ((0,0,0),(255,100,100),(255,0,0),(0,255,0))
+colors = ((0,0,0),(255,100,100),(255,0,0),(0,255,0))
 x=0
 Matrix = [[(-1,-1,-1,-1,-1) for x in range(20)] for x in range(25)]
 print (Matrix[24][19])
@@ -75,7 +75,7 @@ while 1:
 			posi.append(ret[1])
 			posi.append(ret[2])
 			maps.append(posi)
-			Matrix[posi[0]][posi[1]] = posi;
+			Matrix[posi[0]][posi[1]] = posi
 
 	screen.lock()
 
@@ -95,7 +95,7 @@ while 1:
 	for x in range(20):
 		for y in range(25):			
 			if Matrix[y][x][0]!=-1:
-				pygame.draw.rect(background, cor[Matrix[y][x][4]], Rect((y*32,x*32), (32,32)))
+				pygame.draw.rect(background, colors[Matrix[y][x][4]], Rect((y*32,x*32), (32,32)))
 
 	#Menampilkan tulisan + pilihan 
 	label = myfont.render("A - Dinding", 1, (0,0,0))
